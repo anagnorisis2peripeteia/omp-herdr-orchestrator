@@ -1,0 +1,11 @@
+{
+	"name": "omp-herdr-orchestrator",
+	"version": "0.1.0",
+	"private": true,
+	"description": "Spawn, supervise, and watch Herdr-hosted CLI agents from oh-my-pi, with one live roster row per agent",
+	"type": "module",
+	"license": "MIT",
+	"omp": {
+		"extensions": ["./src/index.ts"]
+	}
+}
