@@ -957,6 +957,27 @@ export default function herdrOrchestrator(pi: ExtensionAPI) {
 		},
 	});
 
+	pi.registerTool({
+		name: "herdr_forget",
+		label: "Herdr Forget",
+		description:
+			"Stop tracking a Herdr agent without closing it: drop it from the roster and end its heartbeat. The agent " +
+			"keeps running. Use it to hand an agent over to the user or to another session. target=all clears the roster.",
+		parameters: z.object({
+			target: z.string().describe("Agent name or pane id, or \"all\""),
+		}),
+		async execute(_id, params) {
+			const record = params.target === "all" ? undefined : findRecord(state.records, params.target);
+			if (params.target !== "all" && !record) {
+				return toolText(`${params.target} is not tracked by this session.`, {}, true);
+			}
+			state.records = record ? removeRecord(state.records, record.name) : [];
+			saveRoster();
+			render();
+			return toolText(`Forgot ${record ? record.name : "every agent"}: no longer tracked here, still running.`, {});
+		},
+	});
+
 	pi.registerCommand("herdr", {
 		description: "Herdr orchestrator: status, poll interval, roster display, close, focus",
 		handler: async (args, ctx) => {

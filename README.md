@@ -44,6 +44,7 @@ omp -e ~/omp-herdr-orchestrator/src/index.ts
 | `herdr_keys` | Answer an approval or question dialog with logical keys |
 | `herdr_focus` | Move the user's view to an agent (only when asked) |
 | `herdr_close` | Close the surface this session created and drop the row |
+| `herdr_forget` | Stop tracking an agent and end its heartbeat; the agent keeps running |
 
 `herdr_spawn` arguments that matter:
 
